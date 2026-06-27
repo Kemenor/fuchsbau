@@ -10,6 +10,8 @@ concept needs.
 - **Material 3** — theming (see [DESIGN.md](./DESIGN.md)).
 - **intl + flutter_localizations** — l10n (en / de / fr / it); ARB files, no hardcoded
   user-facing strings.
+- **flutter_local_notifications + timezone** — the **standard** local-reminder pair; no
+  push, no server. `timezone` keeps day-boundary / DST math correct.
 - **No networking by default.** Serverless; **no runtime API keys** baked in.
 
 ## Architecture conventions
@@ -19,6 +21,12 @@ concept needs.
 - **`lib/` layout:** `core` (theme, clock, format) · `data` (db, repositories, backup) ·
   `domain` (pure logic) · `ui` · `l10n`.
 - **History is immutable to edits** where a domain has a log (snapshot at write time).
+- **Router-less navigation.** Imperative `Navigator` + an `IndexedStack`/`TabBar` for
+  top-level destinations; `push` for sheets/detail. No `go_router` — it adds ceremony a
+  single-stack app doesn't need.
+- **Date/time = vanilla `DateTime` + `intl`** (+ `timezone` where day-boundaries matter).
+  No extra date library.
+- **Local-only keys = `INTEGER` autoincrement.** No sync ⇒ no UUIDs.
 
 ## Repo skeleton
 ```
@@ -47,15 +55,13 @@ docs/              GitHub Pages landing site (+ CNAME for the app's domain)
   appbundle` for the Play Store (per-device split).
 - **Landing page** on the app's domain via **GitHub Pages** (`docs/` folder + `CNAME` +
   custom-domain DNS).
+- **Baseline:** min Android API **26** (adaptive icons), family-wide.
 
 ## Per-app additions
 Apps add libraries their concept needs — e.g. checkfuchs: `flutter_local_notifications` +
 `timezone`; knabberfuchs: `mobile_scanner`, ML Kit OCR, `health`. The base above stays
 constant.
 
-## Open stack questions (grill as apps are built)
-- Confirm `flutter_local_notifications` + `timezone` as the **standard** local-notification
-  pair across apps.
-- Standard backup/restore helper (shared `archive` + `share_plus` + `file_selector` flow)
-  — extract to a shared snippet vs. re-implement per app.
-- Minimum SDK / target API baseline to pin family-wide.
+## Still open
+- **Shared backup/restore helper** (`archive` + `share_plus` + `file_selector`) — extract
+  to a reusable snippet/package vs. re-implement per app. Decide when a second app needs it.
