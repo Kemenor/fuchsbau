@@ -158,8 +158,14 @@ ThemeData fuchsbauTheme(
         (s) => s.contains(WidgetState.selected) ? Colors.transparent : null,
       ),
     ),
-    // Material Symbols Rounded defaults (DESIGN.md §4) for any variable-font
-    // (Symbols) icon; ignored by the legacy fixed Icons set.
-    iconTheme: const IconThemeData(weight: 500, grade: 0, opticalSize: 24),
+    // Material Symbols Rounded defaults (DESIGN.md §4). A `color` is required —
+    // without it the default falls back to opaque black (invisible on the dark
+    // surface); onSurfaceVariant adapts to both themes (M3 icon convention).
+    iconTheme: IconThemeData(
+      color: scheme.onSurfaceVariant,
+      weight: 500,
+      grade: 0,
+      opticalSize: 24,
+    ),
   );
 }
