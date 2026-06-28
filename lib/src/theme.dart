@@ -98,6 +98,9 @@ ThemeData fuchsbauTheme(Brightness brightness) {
   return ThemeData(
     colorScheme: scheme,
     useMaterial3: true,
+    // Figtree is the brand voice (bundled in this package). Variable font →
+    // Flutter maps FontWeight onto the wght axis.
+    fontFamily: 'packages/fuchsbau/Figtree',
     extensions: [
       brightness == Brightness.light
           ? FuchsbauStatusColors.light

@@ -18,3 +18,9 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 flutter:
+  fonts:
+    # Figtree — the brand voice (OFL, bundled). Variable weight axis; Flutter
+    # maps FontWeight to the wght axis automatically.
+    - family: Figtree
+      fonts:
+        - asset: assets/fonts/Figtree.ttf
