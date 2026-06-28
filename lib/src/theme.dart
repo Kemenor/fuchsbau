@@ -41,6 +41,13 @@ ColorScheme fuchsbauColorScheme(Brightness brightness) {
 /// component themes on top and record deviations in their own DESIGN_SYSTEM.md.
 ThemeData fuchsbauTheme(Brightness brightness) {
   final scheme = fuchsbauColorScheme(brightness);
+  // DESIGN.md §3 — quiet elevation: cards don't float, they sit one tonal step
+  // ABOVE the warm surface and are separated by a hairline outlineVariant
+  // border (no shadow; the FAB is the only floating element). Light: cards push
+  // toward white; dark: a lighter elevated tone than the surface.
+  final cardColor = brightness == Brightness.light
+      ? Color.alphaBlend(const Color(0xFFFFFFFF).withValues(alpha: .82), scheme.surface)
+      : scheme.surfaceContainerHigh;
   return ThemeData(
     colorScheme: scheme,
     useMaterial3: true,
@@ -49,11 +56,19 @@ ThemeData fuchsbauTheme(Brightness brightness) {
       surfaceTintColor: Colors.transparent,
       centerTitle: true,
     ),
-    // DESIGN.md §3: cards are flat with soft lg(20) rounding.
-    cardTheme: const CardThemeData(
+    // DESIGN.md §3: near-white card, flat, soft lg(20) rounding, hairline border.
+    cardTheme: CardThemeData(
       elevation: 0,
+      color: cardColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        side: BorderSide(color: scheme.outlineVariant),
+      ),
+    ),
+    // DESIGN.md §4: sheets get the xl(28) top rounding.
+    bottomSheetTheme: const BottomSheetThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
       ),
     ),
     // DESIGN.md §4: the FAB is a full-pill (family default colour = primary).
