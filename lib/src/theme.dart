@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'fonts.dart';
 import 'status_colors.dart';
 
 /// Per-brightness surface + brand tokens — the *exact* values the design canon
@@ -92,15 +93,18 @@ ColorScheme fuchsbauColorScheme(Brightness brightness) {
 /// (hairline borders, no shadow — the FAB is the only float), soft rounding
 /// (cards lg-20, FAB full pill, sheets xl-28), white card / sheet / nav on the
 /// warm surface. Apps layer bespoke component themes on top.
-ThemeData fuchsbauTheme(Brightness brightness) {
+ThemeData fuchsbauTheme(
+  Brightness brightness, {
+  FuchsbauFont font = FuchsbauFont.figtree,
+}) {
   final t = _tokensFor(brightness);
   final scheme = fuchsbauColorScheme(brightness);
   return ThemeData(
     colorScheme: scheme,
     useMaterial3: true,
-    // Figtree is the brand voice (bundled in this package). Variable font →
-    // Flutter maps FontWeight onto the wght axis.
-    fontFamily: 'packages/fuchsbau/Figtree',
+    // The user-selectable base typeface (DESIGN.md §2); default Figtree, the
+    // brand voice. `null` family (system) falls back to the platform default.
+    fontFamily: font.family,
     extensions: [
       brightness == Brightness.light
           ? FuchsbauStatusColors.light
@@ -142,5 +146,20 @@ ThemeData fuchsbauTheme(Brightness brightness) {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       shape: StadiumBorder(),
     ),
+    // Switches read as "positive/on" = emerald (not the default primary).
+    switchTheme: SwitchThemeData(
+      thumbColor: WidgetStateProperty.resolveWith(
+        (s) => s.contains(WidgetState.selected) ? scheme.onTertiary : null,
+      ),
+      trackColor: WidgetStateProperty.resolveWith(
+        (s) => s.contains(WidgetState.selected) ? scheme.tertiary : null,
+      ),
+      trackOutlineColor: WidgetStateProperty.resolveWith(
+        (s) => s.contains(WidgetState.selected) ? Colors.transparent : null,
+      ),
+    ),
+    // Material Symbols Rounded defaults (DESIGN.md §4) for any variable-font
+    // (Symbols) icon; ignored by the legacy fixed Icons set.
+    iconTheme: const IconThemeData(weight: 500, grade: 0, opticalSize: 24),
   );
 }

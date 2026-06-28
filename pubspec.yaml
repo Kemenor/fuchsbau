@@ -3,7 +3,7 @@ description: >
   Shared design system for the fuchs family of apps — the pinned tangerine
   triad palette, theme builder, fonts, and status colours. See DESIGN.md /
   ETHOS.md / TECH_STACK.md in this repo for the specification.
-version: 0.1.0
+version: 0.2.0
 publish_to: none
 
 environment:
@@ -24,3 +24,15 @@ flutter:
     - family: Figtree
       fonts:
         - asset: assets/fonts/Figtree.ttf
+    # Atkinson Hyperlegible — accessibility (low vision). OFL, bundled.
+    - family: Atkinson Hyperlegible
+      fonts:
+        - asset: assets/fonts/AtkinsonHyperlegible-Regular.ttf
+        - asset: assets/fonts/AtkinsonHyperlegible-Bold.ttf
+          weight: 700
+    # OpenDyslexic — accessibility (dyslexia). OFL, bundled.
+    - family: OpenDyslexic
+      fonts:
+        - asset: assets/fonts/OpenDyslexic-Regular.otf
+        - asset: assets/fonts/OpenDyslexic-Bold.otf
+          weight: 700

@@ -6,5 +6,6 @@
 library;
 
 export 'src/colors.dart';
+export 'src/fonts.dart';
 export 'src/status_colors.dart';
 export 'src/theme.dart';
