@@ -11,13 +11,14 @@ import 'status_colors.dart';
 /// verbatim on the colour roles; fromSeed is used only as a base to fill the
 /// roles we don't hand-pick (error, shadow, inverse…).
 class _Tokens {
-  final Color bg, card, line, ink, muted, orange, indigo, emerald, onBrand;
+  final Color bg, card, line, ink, muted, mutedText, orange, indigo, emerald, onBrand;
   const _Tokens({
     required this.bg,
     required this.card,
     required this.line,
     required this.ink,
     required this.muted,
+    required this.mutedText,
     required this.orange,
     required this.indigo,
     required this.emerald,
@@ -28,9 +29,10 @@ class _Tokens {
 const _light = _Tokens(
   bg: Color(0xFFFDF6F1), // warm tangerine-tinted surface
   card: Color(0xFFFFFFFF), // crisp white card / sheet / nav
-  line: Color(0xFFF0E2D8), // hairline outlineVariant
+  line: Color(0xFFF0E2D8), // hairline outlineVariant (3:1 floor only)
   ink: Color(0xFF231B16),
-  muted: Color(0xFF8A7B70),
+  muted: Color(0xFF8A7B70), // hairline/disabled use (outline) — not body text
+  mutedText: Color(0xFF6F6058), // secondary TEXT — WCAG AA 4.5:1 (onSurfaceVariant)
   orange: FuchsbauColors.foxOrange, // 0xFFEA7A24
   indigo: FuchsbauColors.indigo, //    0xFF8559D0
   emerald: FuchsbauColors.emerald, //  0xFF1FA85D
@@ -42,6 +44,7 @@ const _dark = _Tokens(
   line: Color(0xFF332821),
   ink: Color(0xFFF3EDE9),
   muted: Color(0xFFA99E96),
+  mutedText: Color(0xFFB7ACA3), // secondary text on dark — comfortably AA
   orange: Color(0xFFF39C4E),
   indigo: Color(0xFFA98CEE),
   emerald: Color(0xFF37CE78),
@@ -60,23 +63,27 @@ ColorScheme fuchsbauColorScheme(Brightness brightness) {
   final t = _tokensFor(brightness);
   // fromSeed only supplies the roles we don't override (error/shadow/inverse).
   final base = ColorScheme.fromSeed(seedColor: t.orange, brightness: brightness);
+  // Text/icon colour for use ON a bright brand fill. White fails WCAG on the
+  // light-mode orange (2.9:1) and emerald (3.1:1) fills, so light mode uses dark
+  // ink on those; dark mode's brighter fills already take dark on-colour.
+  final onBright = brightness == Brightness.light ? t.ink : t.onBrand;
   return base.copyWith(
     primary: t.orange,
-    onPrimary: t.onBrand,
+    onPrimary: onBright,
     primaryContainer: _mix(t.orange, .16, t.card),
     onPrimaryContainer: t.ink,
     secondary: t.indigo,
-    onSecondary: t.onBrand,
+    onSecondary: t.onBrand, // white on indigo passes AA in both themes
     secondaryContainer: _mix(t.indigo, .22, t.card), // nav pill / structural tint
     onSecondaryContainer: t.indigo,
     tertiary: t.emerald,
-    onTertiary: t.onBrand,
+    onTertiary: onBright,
     tertiaryContainer: _mix(t.emerald, .16, t.card), // target band
     onTertiaryContainer: t.ink,
     surface: t.bg,
     onSurface: t.ink,
-    onSurfaceVariant: t.muted,
-    outline: t.muted,
+    onSurfaceVariant: t.mutedText, // secondary body text — AA
+    outline: t.muted, // hairlines / disabled — 3:1 floor
     outlineVariant: t.line,
     // Two-surface model: everything raised (card / sheet / dialog / nav) = card.
     surfaceContainerLowest: t.card,
