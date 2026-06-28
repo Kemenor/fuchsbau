@@ -56,7 +56,9 @@ ThemeData fuchsbauTheme(Brightness brightness) {
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
     ),
-    // DESIGN.md §4: the FAB is a full-pill.
+    // DESIGN.md §4: the FAB is a full-pill (family default colour = primary).
+    // Per-app colour application (e.g. knabberfuchs's emerald CTA) is layered
+    // on in the app's own theme, not here.
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       shape: StadiumBorder(),
     ),
