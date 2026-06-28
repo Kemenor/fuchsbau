@@ -51,6 +51,15 @@ The **same typefaces in every app**, user-selectable for accessibility:
 The choice swaps the base `fontFamily` only; the M3 type scale is family-agnostic.
 **Tabular figures** for times / counts / streaks. Layouts must tolerate the wider faces.
 
+**API.** All faces are bundled in this package (except System). Select one via the
+`FuchsbauFont` enum and pass it to the theme builder; persist the user's choice and rebuild
+the theme on change:
+
+```dart
+theme: fuchsbauTheme(Brightness.light, font: FuchsbauFont.openDyslexic),
+// FuchsbauFont.values → the picker list; each has `.label` and `.family`.
+```
+
 ## 3. Spacing, shape & elevation
 - **Radius:** `8` chips · `12` buttons/inputs · `16` · `20` cards · `28` sheets · `full`
   pills & FAB.
