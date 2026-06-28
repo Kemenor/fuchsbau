@@ -5,6 +5,7 @@
 /// and `TECH_STACK.md` in this repo for the full specification.
 library;
 
+export 'src/choice_picker.dart';
 export 'src/colors.dart';
 export 'src/fonts.dart';
 export 'src/status_colors.dart';
