@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'status_colors.dart';
 
 /// Builds the shared Fuchsbau [ColorScheme] for a [brightness].
 ///
@@ -51,6 +52,11 @@ ThemeData fuchsbauTheme(Brightness brightness) {
   return ThemeData(
     colorScheme: scheme,
     useMaterial3: true,
+    extensions: [
+      brightness == Brightness.light
+          ? FuchsbauStatusColors.light
+          : FuchsbauStatusColors.dark,
+    ],
     scaffoldBackgroundColor: scheme.surface,
     appBarTheme: const AppBarTheme(
       surfaceTintColor: Colors.transparent,
