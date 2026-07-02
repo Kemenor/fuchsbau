@@ -24,3 +24,7 @@ and screens, so the family stays coherent.
 
 An app references this repo; its own `DESIGN_SYSTEM.md` records only **deviations** from
 the bau.
+
+## License
+
+[Apache-2.0](./LICENSE) — Copyright 2026 Kemenor.
