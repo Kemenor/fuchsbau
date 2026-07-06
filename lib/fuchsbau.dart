@@ -8,5 +8,6 @@ library;
 export 'src/choice_picker.dart';
 export 'src/colors.dart';
 export 'src/fonts.dart';
+export 'src/settings_scaffolding.dart';
 export 'src/status_colors.dart';
 export 'src/theme.dart';
