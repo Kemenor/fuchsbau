@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fuchsnest — a small family of calm apps</title>
+  <meta name="description" content="Local-first, ad-free apps with no dark patterns. A calorie tracker, a habit & to-do app, a number puzzle — all built on the Fuchsbau design system.">
+  <meta property="og:title" content="Fuchsnest">
+  <meta property="og:description" content="A small family of calm apps: local-first, ad-free, no dark patterns.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fuchsnest.ch">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦊</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&display=block" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#faf7f4; --card:#fff; --ink:#221d1a; --muted:#7a6f68; --line:#ece4dd;
+      --orange:#ea7a24; --orange-soft:#f0883e; --indigo:#8559d0; --emerald:#1fa85d;
+      --sh:0 24px 60px -34px rgba(0,0,0,.45); --fab:0 8px 18px -8px rgba(234,122,36,.55);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#161311; --card:#211c19; --ink:#f3ede9; --muted:#a99e96; --line:#322a25;
+        --orange:#f39c4e; --orange-soft:#f3a55f; --indigo:#a98cee; --emerald:#37ce78;
+        --sh:0 24px 60px -30px rgba(0,0,0,.8); --fab:0 8px 20px -8px rgba(243,156,78,.5);
+      }
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Figtree',system-ui,sans-serif;color:var(--ink);line-height:1.6;
+      background:radial-gradient(1100px 520px at 78% -8%, rgba(234,122,36,.13), transparent 60%) var(--bg);}
+    .ms{font-family:'Material Symbols Rounded';line-height:1;font-variation-settings:'opsz' 24,'wght' 400,'GRAD' 0,'FILL' 0;flex:none}
+    .ms.fill{font-variation-settings:'FILL' 1}
+    .wrap{max-width:1020px;margin:0 auto;padding:28px 22px}
+
+    nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
+    .brand .fox{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:19px;
+      background:linear-gradient(150deg,var(--orange-soft),var(--orange));box-shadow:var(--fab)}
+    .ghbtn{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-weight:700;font-size:.9rem;
+      color:var(--ink);border:1px solid var(--line);background:var(--card);padding:8px 14px;border-radius:11px}
+
+    .hero{text-align:center;padding:44px 0 40px;max-width:660px;margin:0 auto}
+    h1{font-size:2.7rem;line-height:1.08;letter-spacing:-.03em;margin:0 0 14px}
+    h1 .accent{color:var(--orange)}
+    .lead{font-size:1.12rem;color:var(--muted);margin:0 auto}
+
+    .apps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:8px 0 26px}
+    @media(max-width:820px){.apps{grid-template-columns:1fr}}
+    .app{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:24px 22px;
+      display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:transform .15s ease}
+    .app:hover{transform:translateY(-3px)}
+    .app .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;margin-bottom:14px;color:#fff;font-size:23px}
+    @media (prefers-color-scheme: dark){.app .ic{color:#1a1411}}
+    .app h3{margin:0 0 4px;font-size:1.2rem;letter-spacing:-.01em}
+    .app .tag{font-size:.78rem;font-weight:700;margin:0 0 10px}
+    .tag.live{color:var(--emerald)}
+    .tag.dev{color:var(--orange)}
+    .app p{margin:0 0 16px;color:var(--muted);font-size:.95rem;flex:1}
+    .app .go{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.9rem}
+
+    .ethos{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 26px 10px;margin-bottom:26px}
+    .ethos h2{margin:0 0 4px;font-size:1.3rem;letter-spacing:-.01em}
+    .ethos>p{margin:0 0 18px;color:var(--muted);font-size:.95rem}
+    .rules{display:grid;grid-template-columns:repeat(2,1fr);gap:2px 26px;padding-bottom:16px}
+    @media(max-width:680px){.rules{grid-template-columns:1fr}}
+    .rule{display:flex;gap:11px;align-items:flex-start;padding:8px 0}
+    .rule .ms{font-size:20px;margin-top:3px;color:var(--emerald)}
+    .rule div{font-size:.93rem}
+    .rule b{display:block}
+
+    footer{border-top:1px solid var(--line);margin-top:10px;padding:26px 0 10px;text-align:center;color:var(--muted);font-size:.9rem}
+    footer a{color:inherit}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand"><span class="fox">🦊</span> Fuchsnest</div>
+    <a class="ghbtn" href="https://github.com/Kemenor"><span class="ms" style="font-size:18px">code</span> GitHub</a>
+  </nav>
+
+  <section class="hero">
+    <h1>A small family of <span class="accent">calm</span> apps.</h1>
+    <p class="lead">Local-first, ad-free, no dark patterns — apps built for family and friends first, and shared with everyone. Your data stays on your device.</p>
+  </section>
+
+  <div class="apps">
+    <a class="app" href="https://knabberfuchs.ch">
+      <div class="ic" style="background:var(--emerald)"><span class="ms fill">restaurant</span></div>
+      <h3>Knabberfuchs</h3>
+      <p class="tag live">● Available</p>
+      <p>A calorie tracker without paywalls or nagging. Scan a barcode, snap a photo, or just type a name and the calories — everything stays on your phone.</p>
+      <span class="go">knabberfuchs.ch <span class="ms" style="font-size:18px">arrow_forward</span></span>
+    </a>
+    <a class="app" href="https://checkfuchs.ch">
+      <div class="ic" style="background:var(--orange)"><span class="ms fill">task_alt</span></div>
+      <h3>Checkfuchs</h3>
+      <p class="tag dev">🚧 In development</p>
+      <p>Habits and to-dos on one calm surface. A missed day is data, not a verdict — nothing nags, nothing bleeds red.</p>
+      <span class="go">checkfuchs.ch <span class="ms" style="font-size:18px">arrow_forward</span></span>
+    </a>
+    <a class="app" href="https://knobelfuchs.fuchsnest.ch">
+      <div class="ic" style="background:var(--indigo)"><span class="ms fill">grid_on</span></div>
+      <h3>Knobelfuchs</h3>
+      <p class="tag dev">🚧 In development</p>
+      <p>A peaceful number-match puzzle. No timer, no ads, no way to lose — daily boards, a 50-level adventure, and QR challenges for friends.</p>
+      <span class="go">knobelfuchs.fuchsnest.ch <span class="ms" style="font-size:18px">arrow_forward</span></span>
+    </a>
+  </div>
+
+  <section class="ethos">
+    <h2>The house rules</h2>
+    <p>Every fuchs app is built on <a href="https://github.com/Kemenor/fuchsbau" style="color:var(--orange);font-weight:700;text-decoration:none">Fuchsbau</a> — a shared design system and a shared ethos:</p>
+    <div class="rules">
+      <div class="rule"><span class="ms fill">cloud_off</span><div><b>Local-first</b>Your data lives on your device. No accounts, no server, no analytics.</div></div>
+      <div class="rule"><span class="ms fill">block</span><div><b>No ads, no dark patterns</b>Nothing lures, nags, or guilt-trips. Rewarding is fine; manipulating is not.</div></div>
+      <div class="rule"><span class="ms fill">visibility</span><div><b>For all eyes</b>Dark &amp; light themes, full font scaling, and dyslexia- and low-vision-friendly typefaces.</div></div>
+      <div class="rule"><span class="ms fill">translate</span><div><b>Four languages</b>English, Deutsch, Français, Italiano — Swiss through and through.</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <p><a href="https://fuchsnest.ch">fuchsnest.ch</a> · <a href="https://github.com/Kemenor/fuchsbau">Fuchsbau on GitHub</a></p>
+  </footer>
+</div>
+</body>
+</html>
