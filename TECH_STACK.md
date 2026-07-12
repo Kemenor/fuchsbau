@@ -53,8 +53,11 @@ docs/              GitHub Pages landing site (+ CNAME for the app's domain)
 - **fastlane** for metadata + upload. Phone builds **arm64-only**
   (`flutter build apk --release --target-platform android-arm64`); `flutter build
   appbundle` for the Play Store (per-device split).
-- **Landing page** on the app's domain via **GitHub Pages** (`docs/` folder + `CNAME` +
-  custom-domain DNS).
+- **App ids & domains:** one collection domain — **fuchsnest.ch** — instead of a domain
+  per app. New apps use the id `ch.fuchsnest.<appname>` (e.g. `ch.fuchsnest.knobelfuchs`);
+  apps released before this convention keep their historical ids/domains.
+- **Landing page** via **GitHub Pages** (`docs/` folder + `CNAME`), under fuchsnest.ch for
+  new apps (subdomain vs. path per app).
 - **Baseline:** min Android API **26** (adaptive icons), family-wide.
 
 ## Per-app additions
